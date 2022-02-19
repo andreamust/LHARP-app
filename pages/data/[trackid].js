@@ -1,18 +1,19 @@
 import { useRouter } from "next/router";
 import NavBar from "../../components/NavBar";
+import { useState } from "react";
 
 function TrackPage() {
+  const [filerValue, setFilterValue] = useState("");
   const router = useRouter();
   const myData = require("../../hsim.json");
   const myData2 = myData.similarities;
   const getSim = function (q) {
     return myData2
       .filter((x) => x.track == q)[0]
-      .similarTo.filter((x) => x.value >= 0);
+      .similarTo.filter((x) => x.value >= filerValue / 10000);
   };
+  console.log(filerValue / 10000);
 
-  console.log(router.query.trackid === "isophonics_3");
-  console.log(typeof getSim("isophonics_3"));
   return (
     <div className="flex flex-col xl:col-span-5 md:col-span-5 min-h-[80vh] md:min-h-[94.5vh] bg-purple-500">
       <NavBar />
@@ -21,9 +22,12 @@ function TrackPage() {
         <input
           type="range"
           min="0"
-          max="1"
+          max="10000"
+          step="100"
+          onChange={(event) => setFilterValue(event.target.value)}
           className="w-48 range range-accent"
         />
+        <p>Similarity filter: {filerValue / 10000}</p>
         <table className="table-auto border-collapse border border-slate-400 my-10">
           <tr>
             <th className="border border-slate-300">Similar Song</th>
@@ -37,7 +41,9 @@ function TrackPage() {
               <tr>
                 <td className="border border-slate-300">{info.name}</td>
                 <td className="border border-slate-300">{info.value}</td>
-                <td className="border border-slate-300">{info.progression}</td>
+                <td className="border border-slate-300">
+                  {info.progression.toString()}
+                </td>
               </tr>
             );
           })}

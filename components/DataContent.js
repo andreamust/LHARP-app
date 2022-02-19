@@ -5,7 +5,7 @@ function DataContent() {
   const myData2 = myData.similarities;
 
   return (
-    <div className="flex flex-col col-span-5 md:col-span-5 min-h-[80vh] md:min-h-[94.5vh] bg-purple-500">
+    <div className="flex flex-col col-span-5 md:col-span-5 min-h-[80vh] md:min-h-screen bg-purple-500">
       <div className="my-10 mx-10">
         <h1 className=" text-4xl">Data</h1>
         <table className="table-auto border-collapse border border-slate-400 my-10">

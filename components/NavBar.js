@@ -4,10 +4,12 @@ import { useTheme } from "next-themes";
 function NavBar() {
   const { theme, setTheme } = useTheme();
   return (
-    <header className="flex col-span-5 h-[5vh] bg-blue-200 dark:bg-slate-700 py-4 border-b border-slate-900/10 px-2 md:px-8 lg:border-0 dark:border-slate-300/10 mx-0">
-      <div className="relative flex items-center ">LHARP</div>
+    <header className="flex navbar col-span-5 bg-base-100 dark:bg-slate-700 py-4 border-b border-slate-900/10 px-2 md:px-8 lg:border-0 dark:border-slate-300/10 mx-0">
+      <div className="relative flex items-center ">
+        <Link href={"/"}>LHARP</Link>
+      </div>
       <div className="relative flex items-center ml-auto">
-        <nav className="text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200 md:mr-6 ml-6">
+        <nav className="text-sm leading-6 font-semibold dark:text-slate-200 md:mr-6 ml-6">
           <ul className="flex space-x-8">
             <li className="hover:text-sky-500 dark:hover:text-sky-400">
               <Link href={"/"}>Home</Link>
