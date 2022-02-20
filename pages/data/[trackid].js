@@ -1,24 +1,26 @@
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import NavBar from "../../components/NavBar";
 import { useState } from "react";
+import { findId } from "../../data-processing";
+import { getSim } from "../../data-processing";
 
 function TrackPage() {
   const [filerValue, setFilterValue] = useState("");
   const router = useRouter();
-  const myData = require("../../hsim.json");
-  const myData2 = myData.similarities;
-  const getSim = function (q) {
-    return myData2
-      .filter((x) => x.track == q)[0]
-      .similarTo.filter((x) => x.value >= filerValue / 10000);
-  };
-  console.log(filerValue / 10000);
+
+  const trackId = router.query.trackid;
+  const track = findId(trackId);
+
+  if (!track) {
+    return <h1>404</h1>;
+  }
+  const similarity = getSim(trackId, filerValue);
 
   return (
     <div className="flex flex-col xl:col-span-5 md:col-span-5 min-h-[80vh] md:min-h-[94.5vh] bg-purple-500">
-      <NavBar />
       <div className="my-10 mx-10">
-        <h1 className=" text-4xl">Similarities Data {router.query.trackid}</h1>
+        <h1 className=" text-4xl">Similarities Data {trackId}</h1>
         <input
           type="range"
           min="0"
@@ -36,9 +38,9 @@ function TrackPage() {
               Longest Common Progression
             </th>
           </tr>
-          {getSim(router.query.trackid).map((info) => {
+          {similarity.map((info) => {
             return (
-              <tr>
+              <tr key={info.name}>
                 <td className="border border-slate-300">{info.name}</td>
                 <td className="border border-slate-300">{info.value}</td>
                 <td className="border border-slate-300">

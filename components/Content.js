@@ -2,7 +2,7 @@ import Link from "next/link";
 
 function Content() {
   return (
-    <div className="grid col-span-5 md:col-span-5 h-screen bg-yellow-500 dark:bg-slate-800">
+    <div className="grid h-[91vh]">
       <div className="hero bg-base-200">
         <div className="text-center hero-content">
           <div className="max-w-md">
